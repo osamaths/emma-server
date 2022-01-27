@@ -3,7 +3,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-var http = require("http");
+var cors = require("cors");
 
 var indexRouter = require("./routes/index");
 var apiRouter = require("./routes/v1/api");
@@ -33,6 +33,9 @@ app.listen(port, (err) => {
 
     console.log(`server is listening on ${port}`);
 });
+
+//To allow cross-origin requests
+app.use(cors());
 
 app.use(logger("dev"));
 app.use(express.json());

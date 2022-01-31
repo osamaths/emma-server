@@ -5,17 +5,10 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var cors = require("cors");
 
-var indexRouter = require("./routes/index");
 var apiRouter = require("./routes/v1/api");
+const mongoDB = require("./configs/mongoDB");
 
-//Set up default mongoose connection
-var mongoDB = "mongodb://127.0.0.1/emma";
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-    //don't show the log when it is test
-    console.log("Connected to %s", mongoDB);
-    console.log("App is running ... \n");
-    console.log("Press CTRL + C to stop the process. \n");
-});
+mongoDB.connect();
 
 //Get the default connection
 var db = mongoose.connection;
@@ -43,7 +36,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
 app.use("/api/", apiRouter);
 
 module.exports = app;

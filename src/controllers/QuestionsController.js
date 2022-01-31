@@ -11,6 +11,6 @@ exports.createQuestion = async (req, res) => {
     const questionData = { question, type, options };
 
     const questionDoc = await new Questions(questionData).save();
-
+    console.log("createQuestion", questionDoc, "body", questionData);
     res.send(questionDoc);
 };
